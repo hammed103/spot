@@ -49,8 +49,8 @@ class start(APIView):
             if i["uri"].startswith("spotify:artist")
         ]
         basket = []
-        for id, namex in art[:1]:
-            for cd, country_name in countries[:2]:
+        for id, namex in art:
+            for cd, country_name in countries:
                 # cd = ""
                 if cd == "":
                     params = {
