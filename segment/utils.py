@@ -153,3 +153,29 @@ def header(auth_header):
 
     return headers
 
+def extract_audience_info(row):
+    total_active = int(row['active']['total'])
+    super_active = int(row['active']['super'])
+    moderate_active = int(row['active']['moderate'])
+    light_active = int(row['active']['light'])
+    programmed = int(row['programmed'])
+    previously_active = int(row['previouslyActive'])
+
+    return pd.Series([total_active, super_active, moderate_active, light_active, programmed, previously_active])
+
+
+
+from datetime import datetime
+
+def get_latest_date(dates):
+    """
+    Return the latest date from a list of date strings.
+
+    Args:
+    - dates (list of str): List of date strings in the format 'YYYY-MM-DD'.
+
+    Returns:
+    - str: Latest date string in the format 'YYYY-MM-DD'.
+    """
+    return max(dates, key=lambda date: datetime.strptime(date, "%Y-%m-%d"))
+
