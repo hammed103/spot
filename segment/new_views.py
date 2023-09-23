@@ -31,7 +31,7 @@ class start(APIView):
 
         print(auth_header)
 
-
+        art = [(i["uri"].lstrip("spotify:artist:"),i["name"]) for i in teams if i["uri"].startswith("spotify:artist") ]
         basket = []
         for id,namex in art[:2] :
             for cd,country_name in countries[:2] :
@@ -154,7 +154,7 @@ class start(APIView):
    
         lb = []
     
-        art = [(i["uri"].lstrip("spotify:artist:"),i["name"]) for i in teams if i["uri"].startswith("spotify:artist") ]
+        
         for id,namex in art[:2] :
           for cd,country_name in countries[:2] :
             #cd = ""
