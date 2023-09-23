@@ -49,8 +49,8 @@ class start(APIView):
             if i["uri"].startswith("spotify:artist")
         ]
         basket = []
-        for id, namex in art[:2]:
-            for cd, country_name in countries[:2]:
+        for id, namex in art:
+            for cd, country_name in countries:
                 # cd = ""
                 if cd == "":
                     params = {
@@ -240,8 +240,8 @@ class start(APIView):
 
         lb = []
 
-        for id, namex in art[:2]:
-            for cd, country_name in countries[:2]:
+        for id, namex in art:
+            for cd, country_name in countries:
                 # cd = ""
                 if cd == "":
                     params = {
@@ -324,7 +324,7 @@ class start(APIView):
 
         # jk.to_csv(f"{lit}_a.csv",index=False,quoting=csv.QUOTE_ALL, sep="|")
 
-        file_name = f"spotify_demographics/{lit}_a.csv"
+        file_name = f"spotify_demographic/{lit}_a.csv"
 
         csv_content = jk.to_csv(index=False, quoting=csv.QUOTE_ALL, sep="|")
         result = cloudinary.uploader.upload(
