@@ -25,7 +25,7 @@ class start(APIView):
         sleep(5)
 
         auth_header = login(driver)
-
+        auth_header = "Bearer BQBFRv09uD_oWhI4wMsI7yGmX_qB9naqPFgfNk4dmWNTGvVw9_Mrdsl472GI9OOmCwh5IzIWs42jebXpu9odM-ShlVX5aBIWz_2jNFSnXRn05ldtUWcLHUW7VW77bkSiDN6FdjoUiZruhIMWCrjXtU-NrrgnnN3UItHXnL1xqEN_45resCOa5Jb0-xlFGnWuefzvKPPElL-m16zUFhbgZc-7"
         print(auth_header)
         headers = {
             "authority": "generic.wg.spotify.com",
@@ -67,6 +67,7 @@ class start(APIView):
                     headers=headers,
                 )
                 if response.text == "Token expired":
+                    print("expired token ")
                     auth_header = reload_auth(driver)
                     headers = {
                         "authority": "generic.wg.spotify.com",
