@@ -3,8 +3,12 @@ from segment.utils import *
 from segment.teams import *
 import cloudinary.uploader
 import csv
+import pygsheets
+from bs4 import BeautifulSoup
+import pandas as pd
+import openpyxl
 from io import StringIO
-
+from openpyxl.utils import get_column_letter
 
 class start(APIView):
     @staticmethod
@@ -25,8 +29,108 @@ class start(APIView):
         sleep(5)
 
         auth_header = login(driver)
-        auth_header = "Bearer BQBFRv09uD_oWhI4wMsI7yGmX_qB9naqPFgfNk4dmWNTGvVw9_Mrdsl472GI9OOmCwh5IzIWs42jebXpu9odM-ShlVX5aBIWz_2jNFSnXRn05ldtUWcLHUW7VW77bkSiDN6FdjoUiZruhIMWCrjXtU-NrrgnnN3UItHXnL1xqEN_45resCOa5Jb0-xlFGnWuefzvKPPElL-m16zUFhbgZc-7"
+
         print(auth_header)
+
+
+        headers = {
+            'authority': 'generic.wg.spotify.com',
+            'accept': 'application/json',
+            'accept-language': 'en-US',
+            'app-platform': 'Browser',
+            'authorization': f'{auth_header}',
+            'content-type': 'application/json',
+            'grpc-timeout': '10S',
+            'origin': 'https://artists.spotify.com',
+            'referer': 'https://artists.spotify.com/',
+            'sec-ch-ua': '"Not/A)Brand";v="99", "Microsoft Edge";v="115", "Chromium";v="115"',
+            'sec-ch-ua-mobile': '?1',
+            'sec-ch-ua-platform': '"Android"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-site',
+            'spotify-app-version': '1.0.0.4ff711e',
+            'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36 Edg/115.0.1901.203',
+        }
+
+        # 1. Authorize the client using the provided JSON key
+        gc = pygsheets.authorize(service_file='my-project-1515950162194-ea018b910e23.json')
+
+        # 2. Open the Google Spreadsheet using its title
+        spreadsheet = gc.open('Competitors')
+        for sheet in ['Copy of 11:11'] :
+
+            # 3. Select a specific worksheet by its title (assuming the name of the sheet is 'Sheet1')
+            worksheet = spreadsheet.worksheet_by_title(sheet)
+
+            # 4. Extract a specific row (for example, the 2nd row)
+            row_values = worksheet.get_row(2)
+
+            ddx = row_values[3:]
+
+            tod = str(date.today())
+
+            last = str(date.today() - timedelta(364))
+
+            ddx = [i for i in ddx if i != ""]
+
+            print(len(ddx))
+            dc= pd.DataFrame()
+            # Iterate over the other sheets and merge them with the main dataframe
+            for aid in ddx[:]:
+
+                params = {
+                                        'from_date': f'{last}',
+                                        'to_date': f'{tod}',
+                    }
+                try:
+                    rff = requests.get(f"https://open.spotify.com/artist/{aid}",headers=headers)
+
+                    artistName = soup_from_html(rff.text).find("title").text.split("|")[0]
+
+                    response = requests.get(
+                        f'https://generic.wg.spotify.com/audience-engagement-view/v1/artist/{aid}/stats',
+                        params=params,
+                        headers=headers,
+                    )
+
+
+                    dt = response.json()
+                    fr = pd.DataFrame(dt["streams"]["current_period_timeseries"],)
+                    print(aid)
+                except:
+                    print(artistName,response.text)
+                    continue
+
+                header_row = ["Date", artistName, ]
+                arrays = [header_row, ["Dates",aid]]
+                tuples = list(zip(*arrays))
+                fr.columns = pd.MultiIndex.from_tuples(tuples)
+
+                if dc.shape == (0,0):
+                    dc = fr
+                else:
+                    dc = pd.merge(dc, fr, on= [('Date','Dates')], how="outer")
+
+            # Create the "TOTAL AMOUNT" column with SUM formulas
+            # Create the "TOTAL AMOUNT" column with SUM formulas
+            dc = dc.sort_values((                'Date',                   'Dates'),ascending=False)
+            last_column_letter = get_column_letter(len(dc.columns))
+            dc[("TOTAL AMOUNT","TOTAL AMOUNT")] = [f"=SUM(D{row_num + 3}:{last_column_letter}{row_num + 3})" for row_num in range(len(dc))]
+            dc[('Day', 'Day')] = dc[(           'Date',                   'Dates')].apply(get_day_of_week)
+            
+            # Reorder the columns to have "TOTAL AMOUNT" first
+            dc = dc[[('TOTAL AMOUNT', 'TOTAL AMOUNT')] + [col for col in dc if col != ('TOTAL AMOUNT', 'TOTAL AMOUNT') ]]
+            dc = dc[[('Day', 'Day')] + [col for col in dc if col != ('Day', 'Day') ]]
+            dc = dc[[('Date', 'Dates')] + [col for col in dc if col != ('Date', 'Dates') ]]
+
+            #dc.iloc[0,0] = "TOTAL AMOUNT"
+            worksheet.clear()
+            # Update the worksheet with the new DataFrame
+            worksheet.set_dataframe(dc, start="A1")
+
+
+        
         headers = {
             "authority": "generic.wg.spotify.com",
             "accept": "application/json",
@@ -240,7 +344,7 @@ class start(APIView):
         lit = get_latest_date(lat)
 
         lb = []
-        auth_header = "Bearer BQBFRv09uD_oWhI4wMsI7yGmX_qB9naqPFgfNk4dmWNTGvVw9_Mrdsl472GI9OOmCwh5IzIWs42jebXpu9odM-ShlVX5aBIWz_2jNFSnXRn05ldtUWcLHUW7VW77bkSiDN6FdjoUiZruhIMWCrjXtU-NrrgnnN3UItHXnL1xqEN_45resCOa5Jb0-xlFGnWuefzvKPPElL-m16zUFhbgZc-7"
+        
         headers = {
                         "authority": "generic.wg.spotify.com",
                         "accept": "application/json",

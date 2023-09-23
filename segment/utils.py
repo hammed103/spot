@@ -130,7 +130,13 @@ def reload_auth(driver):
     return auth_header
 
 
-
+def get_day_of_week(date_string):
+    # Convert the date string to a datetime object
+    date_obj = datetime.strptime(date_string, '%Y-%m-%d')
+    
+    # Return the day of the week
+    days = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"]
+    return days[date_obj.weekday()]
 
 def header(auth_header):
     headers = {
