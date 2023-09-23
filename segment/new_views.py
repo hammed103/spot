@@ -13,7 +13,7 @@ from datetime import date, timedelta
 class start(APIView):
     @staticmethod
     def get(req):
-
+        from datetime import date, timedelta
         # Create a new instance of ChromeDriver
         driver = wirewebdriver.Chrome(
             service=service, options=chrome_options, seleniumwire_options=options
