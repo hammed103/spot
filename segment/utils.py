@@ -116,6 +116,8 @@ def login(driver):
 
 
 def reload_auth(driver):
+    driver.refresh()
+    sleep(10)
     for request in driver.requests:
         if request.headers:
             if "authorization" in request.headers:
