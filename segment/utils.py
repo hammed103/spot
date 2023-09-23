@@ -16,7 +16,10 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 from datetime import date, timedelta
+from webdriver_manager.chrome import ChromeDriverManager
+import chromedriver_autoinstaller
 
+chromedriver_autoinstaller.install()
 
 
 # selenium
@@ -28,7 +31,7 @@ from selenium.webdriver.chrome.service import Service
 # Find the login input box by its ID and enter the login credentials
 from selenium.webdriver.common.by import By
 
-service = Service(executable_path="chromedriver")
+service = Service((ChromeDriverManager().install()))
 
 options = {
     "verify_ssl": True  # Verify SSL certificates but beware of errors with self-signed certificates
