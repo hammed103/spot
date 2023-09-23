@@ -30,6 +30,21 @@ class start(APIView):
         auth_header = login(driver)
 
         print(auth_header)
+        headers = {
+                        'authority': 'generic.wg.spotify.com',
+                        'accept': 'application/json',
+                        'accept-language': 'en-US',
+                        'app-platform': 'Browser',
+                        'authorization': f'{auth_header}',
+                        'content-type': 'application/json',
+                        'origin': 'https://artists.spotify.com',
+                        'referer': 'https://artists.spotify.com/',
+                        'sec-fetch-dest': 'empty',
+                        'sec-fetch-mode': 'cors',
+                        'sec-fetch-site': 'same-site',
+                        'spotify-app-version': '1.0.0.9ac0ee2',
+                        'user-agent': 'Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0',
+                    }
 
         art = [(i["uri"].lstrip("spotify:artist:"),i["name"]) for i in teams if i["uri"].startswith("spotify:artist") ]
         basket = []
