@@ -101,7 +101,7 @@ class start(APIView):
 
                 basket.append(moot)
 
-                print(f"{namex} -->  ,Data fetched for {country_name} ")
+                print(f" Segments : {namex} -->  ,Data fetched for {country_name} ")
 
         df = pd.concat(basket)
 
