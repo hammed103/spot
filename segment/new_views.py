@@ -49,8 +49,8 @@ class start(APIView):
             if i["uri"].startswith("spotify:artist")
         ]
         basket = []
-        for id, namex in art:
-            for cd, country_name in countries:
+        for id, namex in art[:1]:
+            for cd, country_name in countries[:2]:
                 # cd = ""
                 if cd == "":
                     params = {
@@ -240,7 +240,22 @@ class start(APIView):
         lit = get_latest_date(lat)
 
         lb = []
-
+        auth_header = "Bearer BQBFRv09uD_oWhI4wMsI7yGmX_qB9naqPFgfNk4dmWNTGvVw9_Mrdsl472GI9OOmCwh5IzIWs42jebXpu9odM-ShlVX5aBIWz_2jNFSnXRn05ldtUWcLHUW7VW77bkSiDN6FdjoUiZruhIMWCrjXtU-NrrgnnN3UItHXnL1xqEN_45resCOa5Jb0-xlFGnWuefzvKPPElL-m16zUFhbgZc-7"
+        headers = {
+                        "authority": "generic.wg.spotify.com",
+                        "accept": "application/json",
+                        "accept-language": "en-US",
+                        "app-platform": "Browser",
+                        "authorization": f"{auth_header}",
+                        "content-type": "application/json",
+                        "origin": "https://artists.spotify.com",
+                        "referer": "https://artists.spotify.com/",
+                        "sec-fetch-dest": "empty",
+                        "sec-fetch-mode": "cors",
+                        "sec-fetch-site": "same-site",
+                        "spotify-app-version": "1.0.0.12cdad2",
+                        "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
+                    }
         for id, namex in art:
             for cd, country_name in countries:
                 # cd = ""
@@ -262,6 +277,7 @@ class start(APIView):
                     headers=headers,
                 )
                 if response.text == "Token expired":
+                    print("expired tokne")
                     auth_header = reload_auth(driver)
                     headers = {
                         "authority": "generic.wg.spotify.com",
