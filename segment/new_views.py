@@ -131,7 +131,7 @@ class start(APIView):
 
 
         
-        headers = {
+            headers = {
             "authority": "generic.wg.spotify.com",
             "accept": "application/json",
             "accept-language": "en-US",
@@ -152,7 +152,7 @@ class start(APIView):
             for i in teams
             if i["uri"].startswith("spotify:artist")
         ]
-        basket = []
+        """basket = []
         for id, namex in art:
             for cd, country_name in countries:
                 # cd = ""
@@ -341,8 +341,8 @@ class start(APIView):
                 overwrite=True,
             )
 
-        lit = get_latest_date(lat)
-
+        lit = get_latest_date(lat)"""
+        lit = "2023-09-21"
         lb = []
         
         headers = {
