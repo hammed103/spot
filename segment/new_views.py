@@ -131,7 +131,7 @@ class start(APIView):
 
 
         
-            headers = {
+        headers = {
             "authority": "generic.wg.spotify.com",
             "accept": "application/json",
             "accept-language": "en-US",
@@ -152,7 +152,7 @@ class start(APIView):
             for i in teams
             if i["uri"].startswith("spotify:artist")
         ]
-        """basket = []
+        basket = []
         for id, namex in art:
             for cd, country_name in countries:
                 # cd = ""
@@ -305,44 +305,37 @@ class start(APIView):
 
         from datetime import date, timedelta
 
-        oki = df[
-            df.Date.isin(
-                [
-                    str(date.today() - timedelta(4)),
-                    str(date.today() - timedelta(3)),
-                    str(date.today() - timedelta(2)),
-                    str(date.today() - timedelta(1)),
-                ]
-            )
-        ]
+        dat = str(date.today() - timedelta(1))
 
-        unique_dates = oki["Date"].unique()
-        lat = []
-
-        for date in unique_dates:
+        #for date in unique_dates:
             # Filter the dataframe for the specific date
-            din = oki[oki["Date"] == date]
-            if (
-                din[din.country == "Worldwide"].total_active_audience_listeners.iloc[0]
-                == 0
-            ):
-                continue
-            # Convert the date to a string format suitable for filenames
-            date_str = str(date)
-            lat.append(date_str)
-            file_name = f"spotify_segments/{date_str}_a.csv"
+        din = df[df["Date"] ==  dat]
+        if (
+            din[din.country == "Worldwide"].total_active_audience_listeners.iloc[0]
+            == 0
+        ):
+            return Response(
+            {
+                "status": "success",
+            },
+            status=201,
+        ) 
+        # Convert the date to a string format suitable for filenames
 
-            csv_content = din.to_csv(index=False, quoting=csv.QUOTE_ALL, sep="|")
-            result = cloudinary.uploader.upload(
-                StringIO(csv_content),
-                public_id=file_name,
-                folder="/Soundcloud/",
-                resource_type="raw",
-                overwrite=True,
-            )
+      
+        file_name = f"spotify_segments/{dat}_a.csv"
 
-        lit = get_latest_date(lat)"""
-        lit = "2023-09-21"
+        csv_content = din.to_csv(index=False, quoting=csv.QUOTE_ALL, sep="|")
+        result = cloudinary.uploader.upload(
+            StringIO(csv_content),
+            public_id=file_name,
+            folder="/Soundcloud/",
+            resource_type="raw",
+            overwrite=True,
+        )
+
+
+
         lb = []
         
         headers = {
@@ -418,7 +411,7 @@ class start(APIView):
 
                 # Rename the columns to 'gender' and 'age'
                 reshaped_df.columns = ["gender", "age", "listeners"]
-                reshaped_df["Date"] = lit
+                reshaped_df["Date"] = dat
                 reshaped_df["country"] = country_name
                 reshaped_df["artist_id"] = id
                 reshaped_df["artist_name"] = namex
@@ -445,7 +438,7 @@ class start(APIView):
 
         # jk.to_csv(f"{lit}_a.csv",index=False,quoting=csv.QUOTE_ALL, sep="|")
 
-        file_name = f"spotify_demographic/{lit}_a.csv"
+        file_name = f"spotify_demographic/{dat}_a.csv"
 
         csv_content = jk.to_csv(index=False, quoting=csv.QUOTE_ALL, sep="|")
         result = cloudinary.uploader.upload(
