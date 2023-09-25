@@ -678,7 +678,7 @@ class segment(APIView):
         ):
             return Response(
             {
-                "status": "success",
+                "status": "No new",
             },
             status=201,
         ) 
@@ -696,3 +696,9 @@ class segment(APIView):
             overwrite=True,
         )
 
+        return Response(
+        {
+            "status": "Success",
+        },
+        status=201,
+    ) 
