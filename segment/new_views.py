@@ -761,7 +761,7 @@ class demo(APIView):
                         "spotify-app-version": "1.0.0.12cdad2",
                         "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
                     }
-        for id, namex in art[:1]:
+        for id, namex in art:
             for cd, country_name in countries:
                 # cd = ""
                 if cd == "":
