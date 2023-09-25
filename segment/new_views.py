@@ -212,7 +212,7 @@ class start(APIView):
                 print(f" Segments : {namex} -->  ,Data fetched for {country_name} ")
 
         df = pd.concat(basket)
-
+        driver.quit()
         df[
             [
                 "total_active_audience_listeners",
@@ -570,6 +570,10 @@ class segment(APIView):
                 print(f" Segments : {namex} -->  ,Data fetched for {country_name} ")
 
         df = pd.concat(basket)
+
+
+
+        driver.quit()
 
         df[
             [
