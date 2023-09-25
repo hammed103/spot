@@ -212,7 +212,7 @@ class start(APIView):
                 print(f" Segments : {namex} -->  ,Data fetched for {country_name} ")
 
         df = pd.concat(basket)
-        driver.quit()
+
         df[
             [
                 "total_active_audience_listeners",
@@ -571,10 +571,6 @@ class segment(APIView):
 
         df = pd.concat(basket)
 
-
-
-        driver.quit()
-
         df[
             [
                 "total_active_audience_listeners",
@@ -671,7 +667,7 @@ class segment(APIView):
 
         from datetime import date, timedelta
 
-        dat = str(date.today() - timedelta(2))
+        dat = str(date.today() - timedelta(1))
 
         #for date in unique_dates:
             # Filter the dataframe for the specific date
@@ -702,7 +698,168 @@ class segment(APIView):
 
         return Response(
         {
-            "status": "Success",
+            "status": "Sucess",
         },
         status=201,
     ) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class demo(APIView):
+    @staticmethod
+    def get(req):
+        from datetime import date, timedelta
+        # Create a new instance of ChromeDriver
+        driver = wirewebdriver.Chrome(
+            service=service, options=chrome_options, seleniumwire_options=options
+        )
+
+        # Clear the cache by deleting all cookies
+        driver.delete_all_cookies()
+
+        driver.refresh()
+        # Now you can use the `driver` object to interact with the browser and access the requests made
+        driver.get("https://artists.spotify.com/c/artist/3EYY5FwDkHEYLw5V86SAtl/home")
+
+        sleep(5)
+
+        auth_header = login(driver)
+
+        print(auth_header)
+        dat = str(date.today() - timedelta(2))
+        art = [
+            (i["uri"].lstrip("spotify:artist:"), i["name"])
+            for i in teams
+            if i["uri"].startswith("spotify:artist")
+        ]
+
+        lb = []
+        
+        headers = {
+                        "authority": "generic.wg.spotify.com",
+                        "accept": "application/json",
+                        "accept-language": "en-US",
+                        "app-platform": "Browser",
+                        "authorization": f"{auth_header}",
+                        "content-type": "application/json",
+                        "origin": "https://artists.spotify.com",
+                        "referer": "https://artists.spotify.com/",
+                        "sec-fetch-dest": "empty",
+                        "sec-fetch-mode": "cors",
+                        "sec-fetch-site": "same-site",
+                        "spotify-app-version": "1.0.0.12cdad2",
+                        "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
+                    }
+        for id, namex in art[:1]:
+            for cd, country_name in countries:
+                # cd = ""
+                if cd == "":
+                    params = {
+                        "time-filter": "28day",
+                        "aggregation-level": "recording",
+                    }
+                else:
+                    params = {
+                        "time-filter": "28day",
+                        "aggregation-level": "recording",
+                        "country": f"{cd}",
+                    }
+
+                response = requests.get(
+                    f"https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/gender-by-age",
+                    params=params,
+                    headers=headers,
+                )
+                if response.text == "Token expired":
+                    print("expired tokne")
+                    auth_header = reload_auth(driver)
+                    headers = {
+                        "authority": "generic.wg.spotify.com",
+                        "accept": "application/json",
+                        "accept-language": "en-US",
+                        "app-platform": "Browser",
+                        "authorization": f"{auth_header}",
+                        "content-type": "application/json",
+                        "origin": "https://artists.spotify.com",
+                        "referer": "https://artists.spotify.com/",
+                        "sec-fetch-dest": "empty",
+                        "sec-fetch-mode": "cors",
+                        "sec-fetch-site": "same-site",
+                        "spotify-app-version": "1.0.0.12cdad2",
+                        "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
+                    }
+                    response = requests.get(
+                        f"https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/gender-by-age",
+                        params=params,
+                        headers=headers,
+                    )
+                try:
+                    stacked_df = pd.DataFrame(response.json()).stack()
+                except:
+                    # print(response.text)
+                    continue
+
+                df = pd.DataFrame(response.json()).iloc[:, 7:]
+
+                stacked_df = df.stack()
+
+                # Reset the index to convert the MultiIndex into columns
+                reshaped_df = stacked_df.reset_index()
+
+                # Rename the columns to 'gender' and 'age'
+                reshaped_df.columns = ["gender", "age", "listeners"]
+                reshaped_df["Date"] = dat
+                reshaped_df["country"] = country_name
+                reshaped_df["artist_id"] = id
+                reshaped_df["artist_name"] = namex
+
+                reshaped_df["age"] = reshaped_df["age"].apply(
+                    lambda x: x.rstrip("_gender").lstrip("age_").replace("_", "-")
+                )
+                bov = reshaped_df[
+                    [
+                        "Date",
+                        "gender",
+                        "age",
+                        "country",
+                        "listeners",
+                        "artist_id",
+                        "artist_name",
+                    ]
+                ]
+                lb.append(bov)
+
+                print(f"{namex} -->  ,Data fetched for {country_name} ")
+
+        jk = pd.concat(lb)
+
+        # jk.to_csv(f"{lit}_a.csv",index=False,quoting=csv.QUOTE_ALL, sep="|")
+
+        file_name = f"spotify_demographic/{dat}_a.csv"
+
+        csv_content = jk.to_csv(index=False, quoting=csv.QUOTE_ALL, sep="|")
+        result = cloudinary.uploader.upload(
+            StringIO(csv_content),
+            public_id=file_name,
+            folder="/Soundcloud/",
+            resource_type="raw",
+            overwrite=True,
+        )
+
+        return Response(
+            {
+                "status": "success",
+            },
+            status=201,
+        )
