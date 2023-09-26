@@ -349,20 +349,21 @@ class segment(APIView):
         from datetime import date, timedelta
 
         dat = str(date.today() - timedelta(1))
-
+        driver.quit()
         #for date in unique_dates:
             # Filter the dataframe for the specific date
         din = df[df["Date"] ==  dat]
-        if (
-            din[din.country == "Worldwide"].total_active_audience_listeners.iloc[0]
-            == 0
-        ):
-            return Response(
-            {
-                "status": "No new",
-            },
-            status=201,
-        ) 
+   
+        try:
+                if  din[din.country == "Worldwide"].total_active_audience_listeners.iloc[0]== 0 :
+                    return Response(
+                    {
+                        "status": "No new",
+                    },
+                    status=201,
+                ) 
+        except:
+            pass
         # Convert the date to a string format suitable for filenames
 
       
@@ -525,6 +526,7 @@ class demo(APIView):
 
         jk = pd.concat(lb)
 
+        driver.quit()
         # jk.to_csv(f"{lit}_a.csv",index=False,quoting=csv.QUOTE_ALL, sep="|")
 
         file_name = f"spotify_demographic/{dat}_a.csv"
