@@ -348,7 +348,7 @@ class segment(APIView):
 
         from datetime import date, timedelta
 
-        dat = str(date.today() - timedelta(2))
+        dat = str(date.today() - timedelta(1))
         driver.quit()
         #for date in unique_dates:
             # Filter the dataframe for the specific date
