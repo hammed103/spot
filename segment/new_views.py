@@ -419,7 +419,7 @@ class demo(APIView):
         auth_header = login(driver)
 
         print(auth_header)
-        dat = str(date.today() - timedelta(1))
+        dat = str(date.today() - timedelta(2))
         art = [
             (i["uri"].lstrip("spotify:artist:"), i["name"])
             for i in teams
