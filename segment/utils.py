@@ -40,7 +40,7 @@ options = {
 # Set up Chrome options
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run Chrome in headless mode
-#chrome_profile_path = "/Default"
+# chrome_profile_path = "/Default"
 chrome_options.add_argument("--user-data-dir=Default2")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
@@ -94,7 +94,7 @@ def login(driver):
         username_input.send_keys("1@1111.io")
         sleep(1)
         username_input = driver.find_element(By.ID, "login-password")
-        username_input.send_keys("Balogohome300")
+        username_input.send_keys("Speedbumps123@@_121!3")
         sleep(1)
         driver.find_element(By.ID, "login-button").click()
         print("password entered ...")
@@ -132,11 +132,12 @@ def reload_auth(driver):
 
 def get_day_of_week(date_string):
     # Convert the date string to a datetime object
-    date_obj = datetime.strptime(date_string, '%Y-%m-%d')
-    
+    date_obj = datetime.strptime(date_string, "%Y-%m-%d")
+
     # Return the day of the week
     days = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"]
     return days[date_obj.weekday()]
+
 
 def header(auth_header):
     headers = {
@@ -161,19 +162,29 @@ def header(auth_header):
 
     return headers
 
+
 def extract_audience_info(row):
-    total_active = int(row['active']['total'])
-    super_active = int(row['active']['super'])
-    moderate_active = int(row['active']['moderate'])
-    light_active = int(row['active']['light'])
-    programmed = int(row['programmed'])
-    previously_active = int(row['previouslyActive'])
+    total_active = int(row["active"]["total"])
+    super_active = int(row["active"]["super"])
+    moderate_active = int(row["active"]["moderate"])
+    light_active = int(row["active"]["light"])
+    programmed = int(row["programmed"])
+    previously_active = int(row["previouslyActive"])
 
-    return pd.Series([total_active, super_active, moderate_active, light_active, programmed, previously_active])
-
+    return pd.Series(
+        [
+            total_active,
+            super_active,
+            moderate_active,
+            light_active,
+            programmed,
+            previously_active,
+        ]
+    )
 
 
 from datetime import datetime
+
 
 def get_latest_date(dates):
     """
@@ -186,4 +197,3 @@ def get_latest_date(dates):
     - str: Latest date string in the format 'YYYY-MM-DD'.
     """
     return max(dates, key=lambda date: datetime.strptime(date, "%Y-%m-%d"))
-
