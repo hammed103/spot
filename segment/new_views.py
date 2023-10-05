@@ -196,7 +196,7 @@ class segment(APIView):
             if i["uri"].startswith("spotify:artist")
         ]
         basket = []
-        for id, namex in art[-6:]:
+        for id, namex in art:
             for cd, country_name in countries:
                 # cd = ""
                 if cd == "":
@@ -348,7 +348,7 @@ class segment(APIView):
 
         from datetime import date, timedelta
 
-        dat = str(date.today() - timedelta(2))
+        dat = str(date.today() - timedelta(1))
         driver.quit()
         #for date in unique_dates:
             # Filter the dataframe for the specific date
@@ -419,7 +419,7 @@ class demo(APIView):
         auth_header = login(driver)
 
         print(auth_header)
-        dat = str(date.today() - timedelta(2))
+        dat = str(date.today() - timedelta(1))
         art = [
             (i["uri"].lstrip("spotify:artist:"), i["name"])
             for i in teams
@@ -443,7 +443,7 @@ class demo(APIView):
                         "spotify-app-version": "1.0.0.12cdad2",
                         "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
                     }
-        for id, namex in art[-6:]:
+        for id, namex in art:
             for cd, country_name in countries:
                 # cd = ""
                 if cd == "":
