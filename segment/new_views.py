@@ -348,35 +348,38 @@ class segment(APIView):
 
         from datetime import date, timedelta
 
-        dat = str(date.today() - timedelta(1))
+        #dat = str(date.today() - timedelta(1))
         driver.quit()
-        #for date in unique_dates:
-            # Filter the dataframe for the specific date
-        din = df[df["Date"] ==  dat]
-   
-        try:
-                if  din[din.country == "Worldwide"].total_active_audience_listeners.iloc[0]== 0 :
-                    return Response(
-                    {
-                        "status": "No new",
-                    },
-                    status=201,
-                ) 
-        except:
-            pass
-        # Convert the date to a string format suitable for filenames
+
+        for dat in [str(date.today() - timedelta(2)),str(date.today() - timedelta(3))] :
+            
+            #for date in unique_dates:
+                # Filter the dataframe for the specific date
+            din = df[df["Date"] ==  dat]
+    
+            try:
+                    if  din[din.country == "Worldwide"].total_active_audience_listeners.iloc[0]== 0 :
+                        return Response(
+                        {
+                            "status": "No new",
+                        },
+                        status=201,
+                    ) 
+            except:
+                pass
+            # Convert the date to a string format suitable for filenames
 
       
-        file_name = f"spotify_segments/{dat}_a.csv"
+            file_name = f"spotify_segments/{dat}_a.csv"
 
-        csv_content = din.to_csv(index=False, quoting=csv.QUOTE_ALL, sep="|")
-        result = cloudinary.uploader.upload(
-            StringIO(csv_content),
-            public_id=file_name,
-            folder="/Soundcloud/",
-            resource_type="raw",
-            overwrite=True,
-        )
+            csv_content = din.to_csv(index=False, quoting=csv.QUOTE_ALL, sep="|")
+            result = cloudinary.uploader.upload(
+                StringIO(csv_content),
+                public_id=file_name,
+                folder="/Soundcloud/",
+                resource_type="raw",
+                overwrite=True,
+            )
 
         return Response(
         {
@@ -419,7 +422,7 @@ class demo(APIView):
         auth_header = login(driver)
 
         print(auth_header)
-        dat = str(date.today() - timedelta(1))
+        dat = str(date.today() - timedelta(2))
         art = [
             (i["uri"].lstrip("spotify:artist:"), i["name"])
             for i in teams
