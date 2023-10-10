@@ -94,7 +94,7 @@ def login(driver):
         username_input.send_keys("x@1111.io")
         sleep(1)
         username_input = driver.find_element(By.ID, "login-password")
-        username_input.send_keys("Speedbumps123@@_121!35")
+        username_input.send_keys("Speedbumps123@@_121!3")
         sleep(1)
         driver.find_element(By.ID, "login-button").click()
         print("password entered ...")
@@ -111,8 +111,10 @@ def login(driver):
                 if auth_header != "":
                     break
 
-    print("Authorization Header:", auth_header)
+
     print(driver.page_source)
+    print("Authorization Header:", auth_header)
+    
     return auth_header
 
 
