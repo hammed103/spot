@@ -351,7 +351,7 @@ class segment(APIView):
         #dat = str(date.today() - timedelta(1))
         driver.quit()
 
-        for dat in [str(date.today() - timedelta(2))] :
+        for dat in [str(date.today() - timedelta(1))] :
             
             #for date in unique_dates:
                 # Filter the dataframe for the specific date
@@ -422,7 +422,7 @@ class demo(APIView):
         auth_header = login(driver)
 
         print(auth_header)
-        dat = str(date.today() - timedelta(2))
+        dat = str(date.today() - timedelta(1))
         art = [
             (i["uri"].lstrip("spotify:artist:"), i["name"])
             for i in teams
