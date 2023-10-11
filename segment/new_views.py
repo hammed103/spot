@@ -357,7 +357,7 @@ class segment(APIView):
         # dat = str(date.today() - timedelta(1))
         driver.quit()
 
-        for dat in ["2023-10-08"]:
+        for dat in [str(date.today() - timedelta(1))]:
 
             # for date in unique_dates:
             # Filter the dataframe for the specific date
