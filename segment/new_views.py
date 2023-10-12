@@ -12,6 +12,18 @@ from openpyxl.utils import get_column_letter
 from datetime import date, timedelta
 
 
+
+from django.http import HttpResponse
+
+def callback(request):
+    code = request.GET.get('code')
+    
+
+    # For demonstration, we're just returning it in an HttpResponse.
+    return HttpResponse(f"Received code: {code}")
+
+
+
 class start(APIView):
     @staticmethod
     def get(req):
