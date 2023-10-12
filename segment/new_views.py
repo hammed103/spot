@@ -357,8 +357,11 @@ class segment(APIView):
         # dat = str(date.today() - timedelta(1))
         driver.quit()
 
-        for dat in [str(date.today() - timedelta(1))]:
-
+        for dat in [
+            str(date.today() - timedelta(2)),
+            str(date.today() - timedelta(1)),
+        ]:
+            print(dat)
             # for date in unique_dates:
             # Filter the dataframe for the specific date
             din = df[df["Date"] == dat]
