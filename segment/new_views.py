@@ -15,11 +15,12 @@ from datetime import date, timedelta
 
 from django.http import HttpResponse
 
-
 def callback(request):
-    query_string = request.META['QUERY_STRING']
-    return HttpResponse(f"Query String: {query_string}")
+    code = request.GET.get('code')
+    
 
+    # For demonstration, we're just returning it in an HttpResponse.
+    return HttpResponse(f"Received code: {code}")
 
 
 
