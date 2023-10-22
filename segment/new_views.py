@@ -161,6 +161,11 @@ class start(APIView):
             # Update the worksheet with the new DataFrame
             worksheet.set_dataframe(dc, start="A1")
 
+        try:
+            driver.quit()
+        except:
+            pass
+
         return Response(
             {
                 "status": "success",
@@ -367,7 +372,10 @@ class segment(APIView):
         from datetime import date, timedelta
 
         # dat = str(date.today() - timedelta(1))
-        driver.quit()
+        try:
+            driver.quit()
+        except:
+            pass
 
         for dat in [
             str(date.today() - timedelta(2)),
@@ -542,8 +550,10 @@ class demo(APIView):
                 print(f"{namex} -->  ,Data fetched for {country_name} ")
 
         jk = pd.concat(lb)
-
-        driver.quit()
+        try:
+            driver.quit()
+        except:
+            pass
         # jk.to_csv(f"{lit}_a.csv",index=False,quoting=csv.QUOTE_ALL, sep="|")
 
         file_name = f"spotify_demographic/{dat}_a.csv"
