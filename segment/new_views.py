@@ -607,7 +607,7 @@ class source(APIView):
             'accept': 'application/json',
             'accept-language': 'en-US',
             'app-platform': 'Browser',
-            'authorization': f'Bearer {auth_header}',
+            'authorization': 'Bearer BQAwYsAzKnCAa3woGE2JYlb-B7lZCucFSClFn1K_xVPpgoDEQrCAVxLhijmTPcsRkJb_gmvdOTCYAivDgvQYWylzzoxwdH0J9MUieEi7biTQN9pKZx5EJ64VcEQOd67hXzCaYTakyKTg1ngKpkHOAWpi7Lp5FN8ixM8TqJeNfTIfxrgrOZ3gZbi1S8QTYVRybW9zs5GhY0l6uLy3LKepbffU9h7M',
             'content-type': 'application/json',
             'grpc-timeout': '10S',
             'origin': 'https://artists.spotify.com',
@@ -621,14 +621,14 @@ class source(APIView):
             'spotify-app-version': '1.0.0.b149c28',
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60',
         }
-        for id, namex in art:
+        for id, namex in art[44:45]:
               # cd = ""
             params = {
                 'time-filter': '28day',
             }
 
             response = requests.get(
-                f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source',
+                f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/66HmkiTooisb91GPkIdVYC/audience/source',
                 params=params,
                 headers=headers,
             )
