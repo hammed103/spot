@@ -607,7 +607,7 @@ class source(APIView):
             'accept': 'application/json',
             'accept-language': 'en-US',
             'app-platform': 'Browser',
-            'authorization': 'Bearer BQAwYsAzKnCAa3woGE2JYlb-B7lZCucFSClFn1K_xVPpgoDEQrCAVxLhijmTPcsRkJb_gmvdOTCYAivDgvQYWylzzoxwdH0J9MUieEi7biTQN9pKZx5EJ64VcEQOd67hXzCaYTakyKTg1ngKpkHOAWpi7Lp5FN8ixM8TqJeNfTIfxrgrOZ3gZbi1S8QTYVRybW9zs5GhY0l6uLy3LKepbffU9h7M',
+            'authorization': f'Bearer {auth_header}',
             'content-type': 'application/json',
             'grpc-timeout': '10S',
             'origin': 'https://artists.spotify.com',
