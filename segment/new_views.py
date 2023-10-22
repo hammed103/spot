@@ -678,6 +678,7 @@ class demo(APIView):
             try:
                 stacked_df = pd.DataFrame(response.json())
             except:
+                print(response.text)
                 gvhjnh
                 # print(response.text)
                 continue
