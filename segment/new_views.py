@@ -626,9 +626,9 @@ class source(APIView):
             params = {
                 'time-filter': '28day',
             }
-
+            print(id)
             response = requests.get(
-                f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/66HmkiTooisb91GPkIdVYC/audience/source',
+                f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source',
                 params=params,
                 headers=headers,
             )
