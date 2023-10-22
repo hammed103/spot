@@ -12,16 +12,14 @@ from openpyxl.utils import get_column_letter
 from datetime import date, timedelta
 
 
-
 from django.http import HttpResponse
 
+
 def callback(request):
-    code = request.GET.get('code')
-    
+    code = request.GET.get("code")
 
     # For demonstration, we're just returning it in an HttpResponse.
     return HttpResponse(f"Received code: {code}")
-
 
 
 class start(APIView):
@@ -160,7 +158,6 @@ class start(APIView):
             worksheet.clear()
             # Update the worksheet with the new DataFrame
             worksheet.set_dataframe(dc, start="A1")
-
 
         return Response(
             {
@@ -369,7 +366,6 @@ class segment(APIView):
 
         # dat = str(date.today() - timedelta(1))
 
-
         for dat in [
             str(date.today() - timedelta(2)),
             str(date.today() - timedelta(1)),
@@ -565,12 +561,6 @@ class demo(APIView):
         )
 
 
-
-
-
-
-
-
 class demo(APIView):
     @staticmethod
     def get(req):
@@ -603,36 +593,64 @@ class demo(APIView):
         lb = []
 
         headers = {
-            'authority': 'generic.wg.spotify.com',
-            'accept': 'application/json',
-            'accept-language': 'en-US',
-            'app-platform': 'Browser',
+            "authority": "generic.wg.spotify.com",
+            "accept": "application/json",
+            "accept-language": "en-US",
+            "app-platform": "Browser",
             "authorization": f"{auth_header}",
-            'content-type': 'application/json',
-            'grpc-timeout': '10S',
-            'origin': 'https://artists.spotify.com',
-            'referer': 'https://artists.spotify.com/',
-            'sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"Windows"',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'same-site',
-            'spotify-app-version': '1.0.0.b149c28',
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60',
+            "content-type": "application/json",
+            "grpc-timeout": "10S",
+            "origin": "https://artists.spotify.com",
+            "referer": "https://artists.spotify.com/",
+            "sec-ch-ua": '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"',
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": '"Windows"',
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-site",
+            "spotify-app-version": "1.0.0.b149c28",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60",
         }
         for id, namex in art:
-              # cd = ""
+            # cd = ""
             params = {
-                'time-filter': '28day',
+                "time-filter": "28day",
+            }
+            import requests
+
+            import requests
+
+            headers = {
+                "authority": "generic.wg.spotify.com",
+                "accept": "application/json",
+                "accept-language": "en-US",
+                "app-platform": "Browser",
+                "authorization": "Bearer BQD5LjvrEX63VrZHOayOE4TCk-miQqEg7MtOZE3RA9B4BfX6IFGm-qgWTgmNRsqBVCsvLzYBk8IezxPaVQy6kmyAZILMvs19qjp5VfqhgNa1HFXDIce4Kqpw1l4BKAiZgnYO5KZiqf6aF-LVMtXq9dNk0HMSGnBDY126OzJQMZ3K8WfL9fDhrkkg3nZW4gZa-fAX7lQm3eS-guLg25-IGzn2YMW2",
+                "content-type": "application/json",
+                "grpc-timeout": "10S",
+                "origin": "https://artists.spotify.com",
+                "referer": "https://artists.spotify.com/",
+                "sec-ch-ua": '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"',
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": '"Windows"',
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-site",
+                "spotify-app-version": "1.0.0.b149c28",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60",
+            }
+
+            params = {
+                "time-filter": "28day",
             }
 
             response = requests.get(
-                f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source',
+                "https://generic.wg.spotify.com/s4x-insights-api/v1/artist/7qSJ2pTGHULkgMGA7ldGt7/audience/source",
                 params=params,
                 headers=headers,
             )
-            print("lol",response.text)
+
+            print("lol", response.text)
             if response.text == "Token expired":
                 print("expired token")
                 auth_header = reload_auth(driver)
@@ -652,11 +670,11 @@ class demo(APIView):
                     "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
                 }
                 response = requests.get(
-                    f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source',
+                    f"https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source",
                     params=params,
                     headers=headers,
                 )
-                print("lol",response.text)
+                print("lol", response.text)
             try:
                 stacked_df = pd.DataFrame(response.json())
             except:
