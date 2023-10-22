@@ -625,7 +625,7 @@ class demo(APIView):
                 "accept": "application/json",
                 "accept-language": "en-US",
                 "app-platform": "Browser",
-                "authorization": "Bearer BQD5LjvrEX63VrZHOayOE4TCk-miQqEg7MtOZE3RA9B4BfX6IFGm-qgWTgmNRsqBVCsvLzYBk8IezxPaVQy6kmyAZILMvs19qjp5VfqhgNa1HFXDIce4Kqpw1l4BKAiZgnYO5KZiqf6aF-LVMtXq9dNk0HMSGnBDY126OzJQMZ3K8WfL9fDhrkkg3nZW4gZa-fAX7lQm3eS-guLg25-IGzn2YMW2",
+                "authorization": "Bearer BQAwYsAzKnCAa3woGE2JYlb-B7lZCucFSClFn1K_xVPpgoDEQrCAVxLhijmTPcsRkJb_gmvdOTCYAivDgvQYWylzzoxwdH0J9MUieEi7biTQN9pKZx5EJ64VcEQOd67hXzCaYTakyKTg1ngKpkHOAWpi7Lp5FN8ixM8TqJeNfTIfxrgrOZ3gZbi1S8QTYVRybW9zs5GhY0l6uLy3LKepbffU9h7M",
                 "content-type": "application/json",
                 "grpc-timeout": "10S",
                 "origin": "https://artists.spotify.com",
