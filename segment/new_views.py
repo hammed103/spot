@@ -571,7 +571,7 @@ class demo(APIView):
 
 
 
-class demo(APIView):
+class source(APIView):
     @staticmethod
     def get(req):
         from datetime import date, timedelta
