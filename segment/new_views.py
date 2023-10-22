@@ -607,7 +607,7 @@ class source(APIView):
             'accept': 'application/json',
             'accept-language': 'en-US',
             'app-platform': 'Browser',
-            "authorization": f"{auth_header}",
+            'authorization': f'Bearer {auth_header}',
             'content-type': 'application/json',
             'grpc-timeout': '10S',
             'origin': 'https://artists.spotify.com',
