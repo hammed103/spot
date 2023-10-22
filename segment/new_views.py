@@ -623,55 +623,56 @@ class demo(APIView):
         }
         for id, namex in art:
               # cd = ""
-              params = {
-                  'time-filter': '28day',
-              }
+            params = {
+                'time-filter': '28day',
+            }
 
-              response = requests.get(
+            response = requests.get(
+                f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source',
+                params=params,
+                headers=headers,
+            )
+            print("lol",response.text)
+            if response.text == "Token expired":
+                print("expired token")
+                auth_header = reload_auth(driver)
+                headers = {
+                    "authority": "generic.wg.spotify.com",
+                    "accept": "application/json",
+                    "accept-language": "en-US",
+                    "app-platform": "Browser",
+                    "authorization": f"{auth_header}",
+                    "content-type": "application/json",
+                    "origin": "https://artists.spotify.com",
+                    "referer": "https://artists.spotify.com/",
+                    "sec-fetch-dest": "empty",
+                    "sec-fetch-mode": "cors",
+                    "sec-fetch-site": "same-site",
+                    "spotify-app-version": "1.0.0.12cdad2",
+                    "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
+                }
+                response = requests.get(
                     f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source',
                     params=params,
                     headers=headers,
                 )
-              if response.text == "Token expired":
-                  print("expired token")
-                  auth_header = reload_auth(driver)
-                  headers = {
-                      "authority": "generic.wg.spotify.com",
-                      "accept": "application/json",
-                      "accept-language": "en-US",
-                      "app-platform": "Browser",
-                      "authorization": f"{auth_header}",
-                      "content-type": "application/json",
-                      "origin": "https://artists.spotify.com",
-                      "referer": "https://artists.spotify.com/",
-                      "sec-fetch-dest": "empty",
-                      "sec-fetch-mode": "cors",
-                      "sec-fetch-site": "same-site",
-                      "spotify-app-version": "1.0.0.12cdad2",
-                      "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
-                  }
-                  response = requests.get(
-                      f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source',
-                      params=params,
-                      headers=headers,
-                  )
-                  print("lol",response.text)
-              try:
-                  stacked_df = pd.DataFrame(response.json())
-              except:
-                  gvhjnh
-                  # print(response.text)
-                  continue
+                print("lol",response.text)
+            try:
+                stacked_df = pd.DataFrame(response.json())
+            except:
+                gvhjnh
+                # print(response.text)
+                continue
 
-              df = pd.DataFrame(response.json())
+            df = pd.DataFrame(response.json())
 
-              df["Date"] = dat
-              df["artist_id"] = id
-              df["artist_name"] = namex
+            df["Date"] = dat
+            df["artist_id"] = id
+            df["artist_name"] = namex
 
-              lb.append(df)
+            lb.append(df)
 
-              print(f"{namex} -->  ")
+            print(f"{namex} -->  ")
         print(len(lb))
         jk = pd.concat(lb)
 
