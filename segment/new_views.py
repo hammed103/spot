@@ -659,7 +659,7 @@ class source(APIView):
             try:
               data = response.json()
             except:
-                fcvgb5rt
+                
                 continue
                 # print(response.text)
                 continue
