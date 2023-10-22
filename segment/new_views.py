@@ -606,7 +606,7 @@ class source(APIView):
             'accept': 'application/json',
             'accept-language': 'en-US',
             'app-platform': 'Browser',
-            'authorization': f'Bearer {auth_header}',
+            'authorization': f'{auth_header}',
             'content-type': 'application/json',
             'grpc-timeout': '10S',
             'origin': 'https://artists.spotify.com',
@@ -620,7 +620,7 @@ class source(APIView):
             'spotify-app-version': '1.0.0.b149c28',
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60',
         }
-        for id, namex in art[:3]:
+        for id, namex in art[:]:
               # cd = ""
             params = {
                 'time-filter': '28day',
