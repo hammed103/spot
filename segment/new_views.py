@@ -660,12 +660,7 @@ class source(APIView):
             try:
               data = response.json()
             except:
-                return Response(
-                    {
-                        "status": f"{id}",
-                    },
-                    status=500,
-                )
+                continue
                 # print(response.text)
                 continue
 
