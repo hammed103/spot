@@ -563,3 +563,125 @@ class demo(APIView):
             },
             status=201,
         )
+
+
+
+
+
+class demo(APIView):
+    @staticmethod
+    def get(req):
+        from datetime import date, timedelta
+
+        # Create a new instance of ChromeDriver
+        driver = wirewebdriver.Chrome(
+            service=service, options=chrome_options, seleniumwire_options=options
+        )
+
+        # Clear the cache by deleting all cookies
+        driver.delete_all_cookies()
+
+        driver.refresh()
+        # Now you can use the `driver` object to interact with the browser and access the requests made
+        driver.get("https://artists.spotify.com/c/artist/3EYY5FwDkHEYLw5V86SAtl/home")
+
+        sleep(5)
+
+        auth_header = login(driver)
+
+        print(auth_header)
+        dat = str(date.today() - timedelta(2))
+        art = [
+            (i["uri"].lstrip("spotify:artist:"), i["name"])
+            for i in teams
+            if i["uri"].startswith("spotify:artist")
+        ]
+
+        lb = []
+
+        headers = {
+            "authority": "generic.wg.spotify.com",
+            "accept": "application/json",
+            "accept-language": "en-US",
+            "app-platform": "Browser",
+            "authorization": f"{auth_header}",
+            "content-type": "application/json",
+            "origin": "https://artists.spotify.com",
+            "referer": "https://artists.spotify.com/",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-site",
+            "spotify-app-version": "1.0.0.12cdad2",
+            "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
+        }
+        for id, namex in art:
+              # cd = ""
+              params = {
+                  'time-filter': '28day',
+              }
+
+              response = requests.get(
+                    f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source',
+                    params=params,
+                    headers=headers,
+                )
+              if response.text == "Token expired":
+                  print("expired token")
+                  auth_header = reload_auth(driver)
+                  headers = {
+                      "authority": "generic.wg.spotify.com",
+                      "accept": "application/json",
+                      "accept-language": "en-US",
+                      "app-platform": "Browser",
+                      "authorization": f"{auth_header}",
+                      "content-type": "application/json",
+                      "origin": "https://artists.spotify.com",
+                      "referer": "https://artists.spotify.com/",
+                      "sec-fetch-dest": "empty",
+                      "sec-fetch-mode": "cors",
+                      "sec-fetch-site": "same-site",
+                      "spotify-app-version": "1.0.0.12cdad2",
+                      "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
+                  }
+                  response = requests.get(
+                      f'https://generic.wg.spotify.com/s4x-insights-api/v1/artist/{id}/audience/source',
+                      params=params,
+                      headers=headers,
+                  )
+              try:
+                  stacked_df = pd.DataFrame(response.json())
+              except:
+                  # print(response.text)
+                  continue
+
+              df = pd.DataFrame(response.json())
+
+              df["Date"] = dat
+              df["artist_id"] = id
+              df["artist_name"] = namex
+
+              lb.append(df)
+
+              print(f"{namex} -->  ")
+
+        jk = pd.concat(lb)
+
+        # jk.to_csv(f"{lit}_a.csv",index=False,quoting=csv.QUOTE_ALL, sep="|")
+
+        file_name = f"spotify_source/{dat}_a.csv"
+
+        csv_content = jk.to_csv(index=False, quoting=csv.QUOTE_ALL, sep="|")
+        result = cloudinary.uploader.upload(
+            StringIO(csv_content),
+            public_id=file_name,
+            folder="/Soundcloud/",
+            resource_type="raw",
+            overwrite=True,
+        )
+
+        return Response(
+            {
+                "status": "success",
+            },
+            status=201,
+        )
