@@ -601,7 +601,7 @@ class source(APIView):
         ]
 
         lb = []
-
+        auth_header = "BQC-EgclBuQuSUSAXIQeCFEgZOtYQ4JBeXjtuLsFbGR0nY1msKdvs5zHLcisVk15qZU84gsa9fbyC-XZsfRHhFxR2Ph5WQGpAdoCTq4MNn_pKSk50ifS_ducoSOf6T1k5akhYFob2uDg23qT26p5P6pFUauBc-Njwr0xHv87rPMVshCtZQEnD73iQSEewFIjhyy8jOxNtaQU-Khgrmv9o2rtSMci"
         headers = {
             'authority': 'generic.wg.spotify.com',
             'accept': 'application/json',
