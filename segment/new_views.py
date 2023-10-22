@@ -586,7 +586,7 @@ class source(APIView):
 
         driver.refresh()
         # Now you can use the `driver` object to interact with the browser and access the requests made
-        driver.get("https://artists.spotify.com/c/artist/3EYY5FwDkHEYLw5V86SAtl/home")
+        driver.get("https://artists.spotify.com/c/artist/7E8UxY4eIFLvnr97FGvZkU/home")
 
         sleep(5)
 
