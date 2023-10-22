@@ -674,7 +674,8 @@ class demo(APIView):
                     params=params,
                     headers=headers,
                 )
-                print("lol", response.text)
+            print("lol", response.text)
+            sdgrtfv
             try:
                 stacked_df = pd.DataFrame(response.json())
             except:
