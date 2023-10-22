@@ -603,19 +603,23 @@ class demo(APIView):
         lb = []
 
         headers = {
-            "authority": "generic.wg.spotify.com",
-            "accept": "application/json",
-            "accept-language": "en-US",
-            "app-platform": "Browser",
+            'authority': 'generic.wg.spotify.com',
+            'accept': 'application/json',
+            'accept-language': 'en-US',
+            'app-platform': 'Browser',
             "authorization": f"{auth_header}",
-            "content-type": "application/json",
-            "origin": "https://artists.spotify.com",
-            "referer": "https://artists.spotify.com/",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
-            "spotify-app-version": "1.0.0.12cdad2",
-            "user-agent": "Mozilla/5.0 (X11; Linux aarch64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.188 Safari/537.36 CrKey/1.54.250320 Edg/115.0.0.0",
+            'content-type': 'application/json',
+            'grpc-timeout': '10S',
+            'origin': 'https://artists.spotify.com',
+            'referer': 'https://artists.spotify.com/',
+            'sec-ch-ua': '"Microsoft Edge";v="117", "Not;A=Brand";v="8", "Chromium";v="117"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-site',
+            'spotify-app-version': '1.0.0.b149c28',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.60',
         }
         for id, namex in art:
               # cd = ""
@@ -654,6 +658,7 @@ class demo(APIView):
               try:
                   stacked_df = pd.DataFrame(response.json())
               except:
+                  gvhjnh
                   # print(response.text)
                   continue
 
@@ -666,7 +671,7 @@ class demo(APIView):
               lb.append(df)
 
               print(f"{namex} -->  ")
-
+        print(len(lb))
         jk = pd.concat(lb)
 
         # jk.to_csv(f"{lit}_a.csv",index=False,quoting=csv.QUOTE_ALL, sep="|")
