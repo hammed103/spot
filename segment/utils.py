@@ -100,7 +100,7 @@ def login(driver):
         print("password entered ...")
         sleep(11)
     except:
-        print(driver.page_source)
+        #print(driver.page_source)
         pass
     # Iterate over the requests made by the browser
     sleep(3)
@@ -112,7 +112,7 @@ def login(driver):
                     break
 
 
-    print(driver.page_source)
+    #print(driver.page_source)
     print("Authorization Header:", auth_header)
     
     return auth_header
