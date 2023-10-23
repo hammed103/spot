@@ -125,7 +125,7 @@ def login(driver):
     # Print the content of each h1 tag
     for tag in h1_tags:
         print(tag.text)
-    print("Authorization Header:", auth_header)
+    #print("Authorization Header:", auth_header)
     for tag in pa_tags :
         print(tag.text)
     return auth_header
