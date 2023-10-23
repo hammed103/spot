@@ -43,7 +43,7 @@ options = {
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run Chrome in headless mode
 # chrome_profile_path = "/Default"
-chrome_options.add_argument("--user-data-dir=Default9")
+chrome_options.add_argument("--user-data-dir=Default")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
@@ -113,10 +113,21 @@ def login(driver):
                 if auth_header != "":
                     break
 
+    # Get the page source
+    html_source = driver.page_source
 
-    print(driver.page_source)
+    # Use BeautifulSoup to parse the page source
+    soup = BeautifulSoup(html_source, 'html.parser')
+
+    # Find all h1 tags
+    h1_tags = soup.find_all('h1')
+    pa_tags = soup.find_all("span")
+    # Print the content of each h1 tag
+    for tag in h1_tags:
+        print(tag.text)
     print("Authorization Header:", auth_header)
-    
+    for tag in pa_tags :
+        print(tag.text)
     return auth_header
 
 
