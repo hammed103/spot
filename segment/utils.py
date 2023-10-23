@@ -17,7 +17,7 @@ import pandas as pd
 
 from datetime import date, timedelta
 from webdriver_manager.chrome import ChromeDriverManager
-import chromedriver_autoinstaller
+
 
 
 
