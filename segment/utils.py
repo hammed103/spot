@@ -24,14 +24,16 @@ chromedriver_autoinstaller.install()
 
 # selenium
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
+
 from selenium.webdriver.chrome.options import Options
 from seleniumwire import webdriver as wirewebdriver
-from selenium.webdriver.chrome.service import Service
 
 # Find the login input box by its ID and enter the login credentials
 from selenium.webdriver.common.by import By
 
-service = Service((ChromeDriverManager().install()))
+service = ChromeService(ChromeDriverManager().install())
 
 options = {
     "verify_ssl": True  # Verify SSL certificates but beware of errors with self-signed certificates
