@@ -39,7 +39,7 @@ class start(APIView):
 
         driver.refresh()
         # Now you can use the `driver` object to interact with the browser and access the requests made
-        driver.get("https://artists.spotify.com/c/artist/7E8UxY4eIFLvnr97FGvZkU/home")
+        driver.get("https://accounts.spotify.com/en/login?continue=https%3A%2F%2Faccounts.spotify.com%2Foauth2%2Fv2%2Fauth%3Fresponse_type%3Dnone%26client_id%3D6cf79a93be894c2086b8cbf737e0796b%26scope%3Duser-read-email%2Buser-read-private%2Bugc-image-upload%26redirect_uri%3Dhttps%253A%252F%252Fartists.spotify.com%252Fc%26acr_values%3Durn%253Aspotify%253Asso%253Aacr%253Aartist%253A2fa")
 
         sleep(5)
 

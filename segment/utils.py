@@ -114,7 +114,7 @@ def login(driver):
                     break
 
 
-    #print(driver.page_source)
+    print(driver.page_source)
     print("Authorization Header:", auth_header)
     
     return auth_header
