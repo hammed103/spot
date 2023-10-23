@@ -39,7 +39,7 @@ class start(APIView):
 
         driver.refresh()
         # Now you can use the `driver` object to interact with the browser and access the requests made
-        driver.get("https://artists.spotify.com/c/roster")
+        driver.get("https://artists.spotify.com/c/artist/7E8UxY4eIFLvnr97FGvZkU/home")
 
         sleep(5)
 
@@ -185,7 +185,7 @@ class segment(APIView):
 
         driver.refresh()
         # Now you can use the `driver` object to interact with the browser and access the requests made
-        driver.get("https://artists.spotify.com/c/roster")
+        driver.get("https://artists.spotify.com/c/artist/7E8UxY4eIFLvnr97FGvZkU/home")
 
         sleep(5)
 
