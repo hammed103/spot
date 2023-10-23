@@ -19,8 +19,7 @@ from datetime import date, timedelta
 from webdriver_manager.chrome import ChromeDriverManager
 import chromedriver_autoinstaller
 
-chromedriver_autoinstaller.install(cwd=True,  chmod=True, overwrite=True, version=None, path="/usr/bin/chromedriver")
-
+chromedriver_autoinstaller.install()
 
 
 # selenium
