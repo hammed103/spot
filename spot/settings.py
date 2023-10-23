@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-_rv-g$!*bnwdj)ikohk6$uyfzz6pt+a8i+g)+fwqw7%6u5b%6h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "165.22.2.164","64.227.34.255"]
+ALLOWED_HOSTS = ["localhost", "165.22.2.164", "64.227.34.255", "159.89.224.227"]
 
 cloudinary.config(
     cloud_name="dfduoxw3q",
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "rest_framework",
-    'corsheaders',
+    "corsheaders",
     "segment",
     "django.contrib.messages",
     "django.contrib.staticfiles",
@@ -137,7 +137,8 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:9000",
     "http://167.99.195.35:8000",
     "http://tracker.purpledorm.io",
-    "http://64.227.34.255:8000"
+    "http://64.227.34.255:8000",
+    "http://159.89.224.227:8000",
 ]
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": "dfduoxw3q",
