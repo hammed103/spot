@@ -102,7 +102,7 @@ def login(driver):
         print("password entered ...")
         sleep(11)
     except:
-        #print(driver.page_source)
+        print(driver.page_source)
         pass
     # Iterate over the requests made by the browser
     sleep(3)
