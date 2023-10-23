@@ -43,7 +43,7 @@ options = {
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run Chrome in headless mode
 # chrome_profile_path = "/Default"
-chrome_options.add_argument("--user-data-dir=Default2")
+chrome_options.add_argument("--user-data-dir=Default9")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
@@ -93,10 +93,10 @@ def soup_from_html(html_string):
 def login(driver):
     try:
         username_input = driver.find_element(By.ID, "login-username")
-        username_input.send_keys("x@1111.io")
+        username_input.send_keys("1@1111.io")
         sleep(1)
         username_input = driver.find_element(By.ID, "login-password")
-        username_input.send_keys("Speedbumps123@@_121!35")
+        username_input.send_keys("Speedbumps123@@_121!3")
         sleep(1)
         driver.find_element(By.ID, "login-button").click()
         print("password entered ...")
