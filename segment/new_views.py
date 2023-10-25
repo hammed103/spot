@@ -30,7 +30,7 @@ class start(APIView):
         from datetime import date, timedelta
 
         # Create a new instance of ChromeDriver
-        driver = wirewebdriver.Chrome(
+        """driver = wirewebdriver.Chrome(
             service=service, options=chrome_options, seleniumwire_options=options
         )
 
@@ -39,12 +39,12 @@ class start(APIView):
 
         driver.refresh()
         # Now you can use the `driver` object to interact with the browser and access the requests made
-        driver.get("https://accounts.spotify.com/en/login?continue=https%3A%2F%2Faccounts.spotify.com%2Foauth2%2Fv2%2Fauth%3Fresponse_type%3Dnone%26client_id%3D6cf79a93be894c2086b8cbf737e0796b%26scope%3Duser-read-email%2Buser-read-private%2Bugc-image-upload%26redirect_uri%3Dhttps%253A%252F%252Fartists.spotify.com%252Fc%26acr_values%3Durn%253Aspotify%253Asso%253Aacr%253Aartist%253A2fa")
+        driver.get("https://accounts.spotify.com/en/login?continue=https%3A%2F%2Faccounts.spotify.com%2Foauth2%2Fv2%2Fauth%3Fresponse_type%3Dnone%26client_id%3D6cf79a93be894c2086b8cbf737e0796b%26scope%3Duser-read-email%2Buser-read-private%2Bugc-image-upload%26redirect_uri%3Dhttps%253A%252F%252Fartists.spotify.com%252Fc%26acr_values%3Durn%253Aspotify%253Asso%253Aacr%253Aartist%253A2fa")"""
 
         sleep(5)
 
-        auth_header = login(driver)
-
+        #auth_header = login(driver)
+        auth_header = "Bearer BQBdOG089bvEpB5bISC1mD_FNzTGYATeD41wBEU-pHcilu7f859mQQZJTdrdmVDUJkViRVF-fqhZNyq6nDnP_ei6JHP9KDYIVkQs-YrNyul_faKajj40BIGhylQGG1F0cxAU3O8ZYqU649vtgRtnDc5LE76lEsfJicWNUgTAXeHh4I48aTF8-8FlUZV2N5vt2_3p_b1uQfipXfFbrrwI0V8X"
         print(auth_header)
 
         headers = {
